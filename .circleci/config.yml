@@ -1,0 +1,22 @@
+version: 2.1
+
+orbs:
+  jira: circleci/jira@dev:alpha
+  node: circleci/node@5.1
+
+jobs:
+  build:
+    executor: node/default
+    steps:
+      - checkout
+      - run:
+          name: Do Something
+          command: echo "Hello World"
+      - jira/notify:
+          pipeline_id: "<< pipeline.id >>"
+          pipeline_number: "<< pipeline.number >>"
+
+workflows:
+  build-workflow:
+    jobs:
+      - build
